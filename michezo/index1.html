@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michezo — Cuide do seu corpo todos os dias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --olive:#4A4A2C;
+    --olive-dark:#34331F;
+    --terracotta:#C1442D;
+    --terracotta-dark:#9C3521;
+    --cream:#F7F3E8;
+    --ink:#221F16;
+    --gray-txt:#5b5750;
+    --line: rgba(34,31,22,.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Work Sans', sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.5;
+  }
+  h1,h2,h3,.display{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    line-height:1.05;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1280px; margin:0 auto; padding:0 32px;}
+
+  /* ---------- top bar ---------- */
+  .topbar{background:var(--olive-dark); color:#EDE9DA; font-size:14px;}
+  .topbar .wrap{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:12px 32px; gap:20px; flex-wrap:wrap;
+  }
+  .topbar .left{display:flex; align-items:center; gap:24px; flex-wrap:wrap;}
+  .topbar .flag{display:inline-flex; align-items:center; gap:6px; cursor:pointer;}
+  .topbar .flag svg{width:22px; height:16px; border-radius:2px;}
+  .topbar .socials{display:flex; gap:16px;}
+  .topbar .socials span{
+    width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,.08);
+    display:flex; align-items:center; justify-content:center; font-size:14px; cursor:pointer;
+  }
+
+  /* ---------- nav ---------- */
+  header.nav{background:var(--terracotta); position:sticky; top:0; z-index:50;}
+  .nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:28px; padding:18px 32px;
+  }
+  .logo{display:flex; align-items:center; gap:14px; color:var(--cream);}
+  .logo .tag-vert{
+    writing-mode:vertical-rl; font-size:7px; letter-spacing:2px;
+    opacity:.55; text-transform:uppercase;
+  }
+  .logo .mark{
+    width:46px; height:46px; display:flex; align-items:center; justify-content:center;
+    font-family:'Anton'; font-size:26px; color:var(--cream); position:relative;
+  }
+  .logo .mark::after{
+    content:''; position:absolute; inset:0; border:2px solid var(--cream); opacity:.9;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+  }
+  .logo .word-block{display:flex; flex-direction:column; align-items:flex-start; line-height:1;}
+  .logo .word{font-family:'Anton'; font-size:22px; letter-spacing:3px;}
+  .logo .sub{font-family:'Work Sans'; font-size:9px; letter-spacing:5px; opacity:.7; margin-top:3px;}
+
+  .search{
+    flex:1; max-width:430px; display:flex; align-items:center; gap:10px;
+    background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35);
+    border-radius:30px; padding:12px 20px;
+  }
+  .search input{
+    background:none; border:none; outline:none; color:var(--cream); width:100%;
+    font-family:'Work Sans'; font-size:15px;
+  }
+  .search input::placeholder{color:rgba(255,255,255,.75);}
+  .search svg{flex:none; opacity:.9;}
+
+  nav.links{display:flex; gap:34px; align-items:center;}
+  nav.links a{
+    color:var(--cream); font-weight:700; font-size:15px; letter-spacing:.5px;
+    text-transform:uppercase; position:relative; padding-bottom:6px;
+  }
+  nav.links a.active::after{
+    content:''; position:absolute; left:0; bottom:0; width:100%; height:2px; background:var(--cream);
+  }
+
+  .nav-icons{display:flex; gap:34px; align-items:center;}
+  .nav-icons .icon-btn{
+    color:var(--cream); text-align:center; font-size:12px; font-weight:700;
+    letter-spacing:.5px; text-transform:uppercase; cursor:pointer;
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+  }
+  .nav-icons svg{width:24px; height:24px;}
+  .cart-wrap{position:relative;}
+  .cart-count{
+    position:absolute; top:-6px; right:-8px;
+    background:var(--olive); color:var(--cream); font-size:10px; font-weight:700;
+    border-radius:20px; padding:1px 6px; min-width:16px; text-align:center;
+  }
+  .burger{display:none; background:none; border:none; color:var(--cream); font-size:26px; cursor:pointer;}
+
+  /* ---------- hero ---------- */
+  .hero{display:grid; grid-template-columns:1fr 1.15fr; background:var(--olive); position:relative;}
+  .hero-text{
+    padding:88px 64px 88px 64px;
+    display:flex; flex-direction:column; justify-content:center; gap:22px;
+    color:var(--cream); position:relative; z-index:2;
+  }
+  .hero-text h1{font-size:clamp(32px,3.6vw,46px); color:#fff;}
+  .hero-text h1 .r{color:var(--terracotta);}
+  .hero-text p{max-width:440px; font-size:15px; color:rgba(247,243,232,.92);}
+  .hero-ctas{display:flex; gap:14px; margin-top:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Work Sans'; font-weight:700; font-size:13.5px; letter-spacing:.5px;
+    text-transform:uppercase; padding:15px 30px; border-radius:3px; border:2px solid transparent;
+    cursor:pointer; transition:transform .15s ease, background .2s ease; display:inline-block;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-solid{background:var(--terracotta); color:var(--cream);}
+  .btn-solid:hover{background:#a83a25;}
+  .btn-outline{border-color:var(--cream); color:var(--cream); background:transparent;}
+  .btn-outline:hover{background:var(--cream); color:var(--olive);}
+
+  .hero-visual{position:relative; overflow:hidden; min-height:620px;}
+  .hero-visual svg{width:100%; height:100%; display:block; position:absolute; inset:0;}
+  .seal{
+    position:absolute; top:60px; right:60px; width:150px; height:150px;
+    background:var(--olive); border:2px dashed var(--cream); border-radius:50%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; color:var(--cream); box-shadow:0 10px 26px rgba(0,0,0,.4); z-index:3;
+  }
+  .seal strong{font-family:'Anton'; font-size:30px; line-height:1;}
+  .seal span{font-family:'Work Sans'; font-weight:700; font-size:9.5px; letter-spacing:.5px; margin-top:6px; max-width:100px;}
+
+  /* ---------- trust bar ---------- */
+  .trust{background:#fff;}
+  .trust .wrap{
+    display:grid; grid-template-columns:repeat(3,1fr); padding:56px 32px; gap:36px;
+  }
+  .trust-item{display:flex; gap:18px; align-items:flex-start; justify-content:center; text-align:left;}
+  .trust-item .ic{flex:none; width:44px; height:44px; color:var(--ink); opacity:.85;}
+  .trust-item h3{font-family:'Anton'; font-weight:400; font-size:20px; letter-spacing:.5px; color:var(--ink);}
+  .trust-item p{font-size:15px; color:var(--gray-txt); margin-top:6px;}
+  .trust-item p b{color:var(--ink);}
+
+  /* ---------- section shared ---------- */
+  .section{padding:84px 0;}
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:42px; flex-wrap:wrap;}
+  .section-head .eyebrow{font-size:13px; letter-spacing:3px; color:var(--terracotta); text-transform:uppercase; font-weight:700; margin-bottom:8px; display:block;}
+  .section-head h2{font-size:clamp(26px,3.4vw,38px); color:var(--ink);}
+  .section-head .view-all{font-size:13px; letter-spacing:1px; font-weight:700; text-transform:uppercase; color:var(--terracotta); border-bottom:2px solid var(--terracotta); padding-bottom:2px; white-space:nowrap;}
+
+  /* ---------- categories ---------- */
+  .cat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  .cat-card{position:relative; aspect-ratio:3/4; border-radius:6px; overflow:hidden; display:flex; align-items:flex-end; padding:22px; color:#fff; cursor:pointer; transition:transform .25s ease;}
+  .cat-card:hover{transform:translateY(-6px);}
+  .cat-card::before{content:''; position:absolute; inset:0; background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,.75) 100%);}
+  .cat-card h3{position:relative; font-size:20px;}
+  .cat-card span{position:relative; font-size:12.5px; opacity:.9;}
+
+  /* ---------- points band ---------- */
+  .points-band{background:var(--olive); color:var(--cream); position:relative; overflow:hidden;}
+  .points-band .wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:44px; align-items:center; padding:72px 32px;}
+  .points-band h2{font-size:clamp(26px,3.6vw,40px); margin-bottom:18px; color:#fff;}
+  .points-band p{color:rgba(247,243,232,.88); max-width:460px; margin-bottom:24px; font-size:15px;}
+  .points-steps{display:flex; flex-direction:column; gap:16px;}
+  .points-step{display:flex; gap:16px; align-items:flex-start;}
+  .points-step .num{
+    font-weight:800; color:var(--olive); background:var(--terracotta); border-radius:50%;
+    width:28px; height:28px; flex:none; display:flex; align-items:center; justify-content:center; font-size:13px;
+  }
+  .points-step p{margin:0; font-size:14.5px; color:var(--cream);}
+  .points-card{background:var(--cream); color:var(--ink); border-radius:10px; padding:32px;}
+  .points-card .top{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;}
+  .points-card .top span{font-size:12px; letter-spacing:1px; text-transform:uppercase; color:var(--gray-txt); font-weight:700;}
+  .points-count{font-family:'Anton'; font-size:54px; color:var(--terracotta); line-height:1;}
+  .points-bar{height:11px; background:#e7e0cd; border-radius:6px; overflow:hidden; margin:18px 0 10px;}
+  .points-bar-fill{height:100%; width:0%; background:linear-gradient(90deg, var(--terracotta), var(--olive)); transition:width 1.4s ease;}
+  .points-card small{font-size:12.5px; color:var(--gray-txt); font-weight:600;}
+
+  /* ---------- products ---------- */
+  .prod-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  .prod-card{background:#fff; border-radius:8px; overflow:hidden; border:1px solid var(--line); transition:box-shadow .2s ease, transform .2s ease;}
+  .prod-card:hover{box-shadow:0 16px 28px rgba(34,31,22,.14); transform:translateY(-4px);}
+  .prod-thumb{aspect-ratio:1/1; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;}
+  .prod-thumb .badge{position:absolute; top:12px; left:12px; background:var(--terracotta); color:#fff; font-size:10.5px; font-weight:700; letter-spacing:.5px; padding:5px 10px; border-radius:3px; text-transform:uppercase;}
+  .prod-thumb .fav{position:absolute; top:12px; right:12px; width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,.9); display:flex; align-items:center; justify-content:center; font-size:15px; cursor:pointer;}
+  .prod-info{padding:18px 18px 20px;}
+  .prod-info .cat{font-size:11px; letter-spacing:1px; color:var(--terracotta); text-transform:uppercase; font-weight:700;}
+  .prod-info h3{font-family:'Work Sans'; font-weight:700; font-size:15.5px; text-transform:none; letter-spacing:0; margin:8px 0 10px; color:var(--ink);}
+  .prod-footer{display:flex; justify-content:space-between; align-items:center; margin-top:10px;}
+  .price{font-weight:800; font-size:17px; color:var(--ink);}
+  .price .old{font-size:12px; color:#a49c8a; text-decoration:line-through; font-weight:400; margin-left:6px;}
+  .add-btn{width:38px; height:38px; border-radius:50%; border:none; background:var(--olive); color:var(--cream); font-size:19px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s ease, transform .2s ease;}
+  .add-btn:hover{background:var(--terracotta); transform:rotate(90deg);}
+  .earn{font-size:11px; color:var(--gray-txt); margin-top:10px; font-weight:600;}
+
+  /* ---------- newsletter / footer ---------- */
+  .newsletter{background:var(--terracotta); color:#fff; text-align:center; padding:78px 32px;}
+  .newsletter h2{font-size:clamp(24px,3.4vw,36px); margin-bottom:14px;}
+  .newsletter p{opacity:.92; margin-bottom:28px; font-size:15px;}
+  .newsletter form{display:flex; max-width:470px; margin:0 auto; gap:10px; flex-wrap:wrap; justify-content:center;}
+  .newsletter input[type=email]{flex:1; min-width:230px; padding:15px 18px; border-radius:3px; border:none; font-family:'Work Sans'; font-size:14px; outline:none;}
+  .newsletter .btn-solid{background:var(--olive);}
+  .newsletter .btn-solid:hover{background:var(--olive-dark);}
+  .newsletter .note{margin-top:16px; font-size:11.5px; opacity:.85;}
+
+  footer{background:var(--ink); color:#EDE9DA;}
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:36px; padding:60px 32px 34px;}
+  .foot-grid h4{font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--terracotta); margin-bottom:18px; font-weight:700;}
+  .foot-grid ul{list-style:none;}
+  .foot-grid li{margin-bottom:11px; font-size:14px; opacity:.85;}
+  .foot-grid p{font-size:13.5px; opacity:.75; max-width:290px; margin-top:12px;}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.12); padding:22px 32px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12px; opacity:.65;}
+
+  /* ---------- toast ---------- */
+  .toast{
+    position:fixed; bottom:26px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--olive); color:var(--cream); padding:14px 22px; border-radius:6px;
+    font-size:13.5px; opacity:0; pointer-events:none; transition:all .35s ease; z-index:200;
+    box-shadow:0 10px 26px rgba(0,0,0,.3); display:flex; align-items:center; gap:10px;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  @media (max-width:960px){
+    .hero{grid-template-columns:1fr;}
+    .hero-visual{min-height:320px; order:-1;}
+    .seal{width:120px; height:120px; top:24px; right:24px;}
+    .seal strong{font-size:24px;}
+    .trust .wrap{grid-template-columns:1fr;}
+    .cat-grid{grid-template-columns:repeat(2,1fr);}
+    .prod-grid{grid-template-columns:repeat(2,1fr);}
+    .points-band .wrap{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    nav.links, .search{display:none;}
+    .burger{display:block;}
+  }
+  @media (max-width:560px){
+    .cat-grid, .prod-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;}
+    .hero-text{padding:60px 26px;}
+  }
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important;} }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="left">
+      <span class="flag">
+        <svg viewBox="0 0 720 504"><rect width="720" height="504" fill="#009739"/><path d="M360 72 660 252 360 432 60 252Z" fill="#FEDD00"/><circle cx="360" cy="252" r="90" fill="#012169"/></svg>
+        ▾
+      </span>
+      <span>[41] 98556-6333</span>
+      <span>Lojamichezo@gmail.com</span>
+    </div>
+    <div class="socials">
+      <span title="Instagram">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </span>
+      <span title="Facebook">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-9h3l.5-4H13V6.5C13 5.4 13.5 5 14.7 5H16V1.2C15.6 1.1 14.3 1 13 1 9.7 1 8 3 8 6v3H5v4h3v9h5Z"/></svg>
+      </span>
+    </div>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <span class="tag-vert">MICHEZO</span>
+      <span class="mark">M</span>
+      <span class="word-block">
+        <span class="word">MICHEZO</span>
+      </span>
+    </a>
+
+    <div class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="O que você está procurando?">
+    </div>
+
+    <nav class="links">
+      <a href="#inicio" class="active">Início</a>
+      <a href="#pontos">Pontos</a>
+      <a href="#produtos">Produtos</a>
+    </nav>
+
+    <div class="nav-icons">
+      <div class="icon-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+        Minha conta
+      </div>
+      <div class="icon-btn cart-wrap" id="cartBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1.4"/><circle cx="18" cy="21" r="1.4"/><path d="M2 3h2l2.6 12.6a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L21 7H6"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+        Meu carrinho
+      </div>
+    </div>
+    <button class="burger">☰</button>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="hero-text">
+    <h1><span class="r">CUIDE DO SEU CORPO<br>TODOS OS DIAS.</span> NÓS<br>CUIDAMOS DO SEU<br><span class="r">VISUAL</span> EM CADA PASSO.</h1>
+    <p>Colecione pontos fazendo compras e ganhe descontos especiais, brindes ou até mesmo uma peça sem custo.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-solid" href="#produtos">Ver produtos</a>
+      <a class="btn btn-outline" href="#pontos">Como funcionam os pontos</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <svg viewBox="0 0 900 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bgfade" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#2E1E14"/>
+          <stop offset="1" stop-color="#7A2E17"/>
+        </linearGradient>
+      </defs>
+      <rect width="900" height="900" fill="url(#bgfade)"/>
+      <!-- geometric wax-print blocks -->
+      <g opacity="0.95">
+        <rect x="0" y="0" width="450" height="450" fill="#8C3018"/>
+        <rect x="450" y="0" width="450" height="300" fill="#123B34"/>
+        <rect x="450" y="300" width="450" height="600" fill="#C1442D"/>
+        <rect x="0" y="450" width="450" height="450" fill="#1B1712"/>
+      </g>
+      <!-- chevrons -->
+      <g stroke="#F2E9D3" stroke-width="10" fill="none" opacity="0.85">
+        <path d="M40 260 L110 190 L180 260"/>
+        <path d="M40 320 L110 250 L180 320"/>
+        <path d="M480 620 L560 540 L640 620"/>
+        <path d="M480 680 L560 600 L640 680"/>
+      </g>
+      <g fill="#F2E9D3" opacity="0.9">
+        <circle cx="120" cy="90" r="14"/>
+        <circle cx="170" cy="120" r="8"/>
+        <circle cx="700" cy="140" r="10"/>
+        <circle cx="740" cy="180" r="16"/>
+      </g>
+      <!-- swirl -->
+      <path d="M180 720 C 260 600, 320 600, 340 720 C 360 830, 430 830, 460 720" stroke="#F2E9D3" stroke-width="14" fill="none" opacity="0.9"/>
+      <!-- diamond weave -->
+      <g stroke="#0E0C08" stroke-width="8" fill="none" opacity="0.5">
+        <path d="M540 760 l40 -40 40 40 -40 40 Z"/>
+        <path d="M640 760 l40 -40 40 40 -40 40 Z"/>
+        <path d="M740 760 l40 -40 40 40 -40 40 Z"/>
+      </g>
+      <!-- leaves overlay -->
+      <g fill="#1F4A2B" opacity="0.95">
+        <path d="M760 40 C 900 90 900 260 800 340 C 760 240 740 140 760 40 Z"/>
+        <path d="M700 20 C 800 40 820 150 760 220 C 720 140 700 90 700 20 Z"/>
+        <path d="M60 780 C 140 720 260 730 300 800 C 220 840 100 850 60 780 Z"/>
+        <path d="M120 820 C 200 790 300 810 330 880 C 250 900 150 900 120 820 Z"/>
+        <path d="M600 760 C 660 700 760 700 820 760 C 760 800 660 800 600 760 Z"/>
+      </g>
+      <g fill="#2E6B3D" opacity="0.9">
+        <path d="M820 60 C 880 110 870 220 800 260 C 780 190 780 120 820 60 Z"/>
+        <path d="M40 800 C 100 760 190 770 220 830 C 160 860 80 855 40 800 Z"/>
+      </g>
+    </svg>
+    <div class="seal">
+      <strong>10% OFF</strong>
+      <span>SUA PRIMEIRA COMPRA</span>
+    </div>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-item">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="6" width="14" height="11" rx="1"/><path d="M15 10h4l3 4v3h-7z"/><circle cx="6" cy="19" r="1.8"/><circle cx="17.5" cy="19" r="1.8"/></svg>
+      <div>
+        <h3>Enviamos suas compras</h3>
+        <p>Entrega em todo o país</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+      <div>
+        <h3>Pague como quiser</h3>
+        <p>Cartões de crédito, à vista ou em <b>pontos acumulados</b></p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      <div>
+        <h3>Compre com segurança</h3>
+        <p>Seus dados sempre protegidos</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="categorias">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="eyebrow">Explore</span><h2>Categorias</h2></div>
+      <a class="view-all" href="#produtos">Ver tudo →</a>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card" style="background:#3A4A2E;"><h3>Roupas</h3><span>Camisetas · Leggings · Shorts</span></div>
+      <div class="cat-card" style="background:#9C3521;"><h3>Calçados</h3><span>Tênis de treino e corrida</span></div>
+      <div class="cat-card" style="background:#B87322;"><h3>Suplementos</h3><span>Whey · Creatina · Vitaminas</span></div>
+      <div class="cat-card" style="background:#2E2A1E;"><h3>Acessórios</h3><span>Garrafas · Bolsas · Luvas</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="points-band" id="pontos">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow" style="color:var(--terracotta);">Programa de fidelidade</span>
+      <h2>Colecione pontos<br>a cada treino de compra.</h2>
+      <p>Ganhe pontos comprando e trocando por descontos, brindes ou até uma peça sem custo. Quanto mais você se move, mais você ganha.</p>
+      <div class="points-steps">
+        <div class="points-step"><span class="num">1</span><p>Compre produtos e ganhe pontos automaticamente.</p></div>
+        <div class="points-step"><span class="num">2</span><p>Acumule pontos a cada pedido concluído.</p></div>
+        <div class="points-step"><span class="num">3</span><p>Troque por cupons, brindes ou frete grátis.</p></div>
+      </div>
+    </div>
+    <div class="points-card">
+      <div class="top"><span>Seus pontos</span></div>
+      <div class="points-count" id="pointsCount">0</div>
+      <div class="points-bar"><div class="points-bar-fill" id="pointsFill"></div></div>
+      <small>Faltam 150 pontos para o próximo brinde</small>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="produtos">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="eyebrow">Mais vendidos</span><h2>Produtos em destaque</h2></div>
+      <a class="view-all" href="#">Ver todos →</a>
+    </div>
+    <div class="prod-grid" id="prodGrid"></div>
+  </div>
+</section>
+
+<section class="newsletter">
+  <div class="wrap">
+    <h2>Não perca nenhuma oferta</h2>
+    <p>Cadastre seu e-mail e receba novidades, descontos e dicas direto na sua caixa de entrada.</p>
+    <form id="newsForm">
+      <input type="email" placeholder="seu@email.com" required>
+      <button type="submit" class="btn btn-solid">Quero receber</button>
+    </form>
+    <div class="note">Sem spam. Cancele quando quiser.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <span class="word" style="font-size:20px; color:#fff;">MICHEZO</span>
+      <p>Cuidamos do seu corpo e do seu visual em cada passo. Roupas, calçados e acessórios pensados para sua rotina.</p>
+    </div>
+    <div><h4>Loja</h4><ul><li>Roupas</li><li>Calçados</li><li>Suplementos</li><li>Acessórios</li></ul></div>
+    <div><h4>Ajuda</h4><ul><li>Meus pedidos</li><li>Trocas e devoluções</li><li>Programa de pontos</li><li>Fale conosco</li></ul></div>
+    <div><h4>Contato</h4><ul><li>(41) 98556-6333</li><li>Lojamichezo@gmail.com</li></ul></div>
+  </div>
+  <div class="foot-bottom wrap">
+    <span>© 2026 Michezo. Todos os direitos reservados.</span>
+    <span>Cuide do seu corpo todos os dias.</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast">✔ Produto adicionado ao carrinho</div>
+
+<script>
+  const products = [
+    {name:"Camiseta Dry-Fit Performance", cat:"Roupas", price:"R$ 89,90", old:"R$ 119,90", color:"#3A4A2E", icon:"👕", badge:"-25%", pts:9},
+    {name:"Legging Compressão Total", cat:"Roupas", price:"R$ 149,90", old:null, color:"#9C3521", icon:"🩳", badge:"Novo", pts:15},
+    {name:"Tênis Corrida ProGrip", cat:"Calçados", price:"R$ 349,90", old:"R$ 419,90", color:"#B87322", icon:"👟", badge:"-16%", pts:35},
+    {name:"Whey Protein 900g", cat:"Suplementos", price:"R$ 129,90", old:null, color:"#2E2A1E", icon:"🥤", badge:"Mais vendido", pts:13},
+    {name:"Faixa Elástica Resistência", cat:"Suplementos", price:"R$ 39,90", old:null, color:"#3A4A2E", icon:"➰", badge:null, pts:4},
+    {name:"Garrafa Térmica 750ml", cat:"Acessórios", price:"R$ 59,90", old:"R$ 74,90", color:"#9C3521", icon:"🧴", badge:"-20%", pts:6},
+    {name:"Short Treino Respirável", cat:"Roupas", price:"R$ 79,90", old:null, color:"#B87322", icon:"🩲", badge:null, pts:8},
+    {name:"Luva de Musculação", cat:"Acessórios", price:"R$ 49,90", old:null, color:"#2E2A1E", icon:"🧤", badge:"Novo", pts:5},
+  ];
+
+  const grid = document.getElementById('prodGrid');
+  products.forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'prod-card';
+    card.innerHTML = `
+      <div class="prod-thumb" style="background:${p.color};">
+        ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
+        <span class="fav" title="Favoritar">♡</span>
+        <span style="font-size:66px;">${p.icon}</span>
+      </div>
+      <div class="prod-info">
+        <span class="cat">${p.cat}</span>
+        <h3>${p.name}</h3>
+        <div class="prod-footer">
+          <span class="price">${p.price}${p.old ? `<span class="old">${p.old}</span>` : ''}</span>
+          <button class="add-btn" data-index="${i}" title="Adicionar ao carrinho">+</button>
+        </div>
+        <div class="earn">Ganhe ${p.pts} pontos nesta compra</div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  let cartCount = 0;
+  const cartCountEl = document.getElementById('cartCount');
+  const toast = document.getElementById('toast');
+  let toastTimer;
+
+  grid.addEventListener('click', (e) => {
+    const btn = e.target.closest('.add-btn');
+    if(btn){
+      cartCount++;
+      cartCountEl.textContent = cartCount;
+      const p = products[btn.dataset.index];
+      toast.textContent = `✔ ${p.name} adicionado ao carrinho`;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+      return;
+    }
+    const fav = e.target.closest('.fav');
+    if(fav){
+      fav.textContent = fav.textContent === '♡' ? '♥' : '♡';
+      fav.style.color = fav.textContent === '♥' ? '#C1442D' : '';
+    }
+  });
+
+  const pointsCountEl = document.getElementById('pointsCount');
+  const pointsFillEl = document.getElementById('pointsFill');
+  let pointsAnimated = false;
+  const targetPoints = 350;
+
+  function animatePoints(){
+    if(pointsAnimated) return;
+    pointsAnimated = true;
+    let current = 0;
+    const step = Math.ceil(targetPoints / 40);
+    const interval = setInterval(() => {
+      current += step;
+      if(current >= targetPoints){ current = targetPoints; clearInterval(interval); }
+      pointsCountEl.textContent = current;
+      pointsFillEl.style.width = (current / 500 * 100) + '%';
+    }, 25);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if(entry.isIntersecting) animatePoints(); });
+  }, { threshold: 0.4 });
+  observer.observe(document.getElementById('pontos'));
+
+  document.getElementById('newsForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    toast.textContent = '✔ E-mail cadastrado com sucesso!';
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+    e.target.reset();
+  });
+</script>
+
+</body>
+</html>
